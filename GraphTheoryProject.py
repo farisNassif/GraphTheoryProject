@@ -30,5 +30,5 @@ def shunt(infix):
         pofix, stack = pofix + stack[-1], stack[:-1]
 
     return pofix
-
-print(shunt("(a*b.c|b.b.c*|b*.b*.c)")) 
+x = str(input("Enter a string in infix notation: "))
+print(shunt(x)) 

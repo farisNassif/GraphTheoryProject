@@ -60,7 +60,6 @@ def shuntingYard(infix):
         else:
             # If its not a special char or bracket add it to postfix
             pofix = pofix + c
-
     while stack:
         # Take whatevers on the end of the stack and put it into pofix
         # Then get rid of it on the stack
@@ -82,6 +81,21 @@ def compile(pofix):
             nfa1.accept.edge1 = nfa2.initial
             # Push it to the stack
             newnfa = nfa(nfa1.initial, nfa2.accept)
+            nfastack.append(newnfa)
+        elif char == '+':
+            # Alike the * operator, takes one operand 
+            # Pop a single nfa from the stack
+            nfa1 = nfastack.pop()
+            # Create new initial state
+            initial = state()
+            # Join new intial state to nfa1's intial state
+            initial.edge1 = nfa1.initial
+            nfa1.initial.edge1 = accept
+            # Join the accept state to the old initial 
+            nfa1.accept.edge1 = nfa1.initial
+            nfa1.accept.edge2 = accept
+            # Push new nfa to the stack
+            newnfa = nfa(initial, nfa1.accept)
             nfastack.append(newnfa)
         elif char == '|':
             # | operator needs two operands, pops two of them off the stack
@@ -115,7 +129,6 @@ def compile(pofix):
             # Push new nfa to the stack
             newnfa = nfa(initial, accept)
             nfastack.append(newnfa)
-
         else:
             # Two 'circles', initial and accept
             accept = state()
@@ -129,6 +142,8 @@ def compile(pofix):
 
     # Should only have a single nfa on it         
     return nfastack.pop()
+
+print("---Author: Faris Nassif | G00347032---\n") 
 
 # Just printing an infix expression and the same expression in postfix to test
 print("Infix\n(a.b)*|(b+a.d*)\nPostfix") 

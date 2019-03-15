@@ -83,19 +83,13 @@ def compile(pofix):
             newnfa = nfa(nfa1.initial, nfa2.accept)
             nfastack.append(newnfa)
         elif char == '+':
-            # Alike the * operator, takes one operand 
             # Pop a single nfa from the stack
             nfa1 = nfastack.pop()
-            # Create new initial state
-            initial = state()
-            # Join new intial state to nfa1's intial state
-            initial.edge1 = nfa1.initial
-            nfa1.initial.edge1 = accept
-            # Join the accept state to the old initial 
+            # With the '+' operator, there is no need to create new initial or accept states
+            nfa1.initial.edge1 = nfa1.accept
             nfa1.accept.edge1 = nfa1.initial
-            nfa1.accept.edge2 = accept
             # Push new nfa to the stack
-            newnfa = nfa(initial, nfa1.accept)
+            newnfa = nfa(nfa1.initial, nfa1.accept)
             nfastack.append(newnfa)
         elif char == '|':
             # | operator needs two operands, pops two of them off the stack
@@ -120,7 +114,7 @@ def compile(pofix):
             # Create new initial and accept states
             initial = state()
             accept = state()
-            # Join new intial state to nfa1's intial state and the new accept stae
+            # Join new intial state to nfa1's intial state and the new accept state
             initial.edge1 = nfa1.initial
             initial.edge2 = accept
             # Join the old accept state to the new accept state and nfa1's intial state 
@@ -143,12 +137,70 @@ def compile(pofix):
     # Should only have a single nfa on it         
     return nfastack.pop()
 
-print("---Author: Faris Nassif | G00347032---\n") 
+def followes(state):
+    """Return the set of states that can be reached from state following the e arrows"""
+    # Create a new set with state as it's only member
+    states = set()
+    states.add(state)
+
+    # Check if state has arrows labelled e from it
+    if state.label is None:
+        # Check if edge1 is a state
+        if state.edge1 is not None:
+            # If there's an edge1, follow it
+            states |= followes(state.edge1)
+        # Check if edge2 is a state
+        if state.edge2 is not None:
+            # If there's an edge2, follow it
+            states |= followes(state.edge2)
+    
+    # Return the set of states
+    return states
+
+def match(infix, string):
+    """Matches the string to the infix regular expression"""
+    # Shunt and compile the regular expression
+    postfix = shuntingYard(infix)
+    nfa = compile(postfix)
+
+    # The current set of states and the next set of states
+    current = set()
+    nexts = set()
+
+    # Add the initial state to the current list
+    current |= followes(nfa.initial)
+
+    # Loop through each character in the string
+    for s in string:
+        # Loop through the current set of states
+        for c in current:
+            # Check if that state is labelled s
+            if c.label == s:
+                # Add the edge1 state to the next set.
+                nexts |= followes(c.edge1)
+        # Set current to next, and clear out next 
+        current = nexts
+        nexts = set()
+    # Check if the accept state is in the set of current states
+    return (nfa.accept in current)
+
+# print(compile("ab.cd.|"))
+# print(compile("aa.*"))
+
+# Tests
+infixes = ["b+|c.d*"]
+strings = ["cddd"]
+
+for i in infixes:
+    for s in strings:
+        print(match(i,s), i, s)
+
+# print("---Author: Faris Nassif | G00347032---\n") 
 
 # Just printing an infix expression and the same expression in postfix to test
-print("Infix\n(a.b)*|(b+a.d*)\nPostfix") 
-print(shuntingYard("(a.b)*|(b+a.d*)")) 
+# print("Infix\n(a.b)*|(b+a.d*)\nPostfix") 
+# print(shuntingYard("(a.b)*|(b+a.d*)")) 
 
 # Prompting the user to input an expression of their own for testing purposes
-regexp = str(input("Enter a regular expression in infix notation: "))
-print(shuntingYard(regexp)) 
+# regexp = str(input("Enter a regular expression in infix notation: "))
+# print(shuntingYard(regexp)) 

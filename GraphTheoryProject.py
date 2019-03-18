@@ -2,7 +2,7 @@
 # Third Year Graph Theory Project
 
 # The goal of this Program is to develop a Python script that will 
-# construct a NFA from a regular expression in Polish notation and 
+# construct an NFA from a regular expression in Polish notation and 
 # see if the regular expression matches a certain String with help 
 # from the previously constructed NFA.
 
@@ -71,6 +71,7 @@ def shuntingYard(infix):
 # Helped cement the process a bit better - https://www.youtube.com/watch?v=RYNN-tb9WxI
 # https://en.wikipedia.org/wiki/Thompson%27s_construction
 def compile(pofix):
+    """Constructs NFA's and pushes them to the stack"""
     nfastack = []
     for char in pofix:
         if char == '.':
@@ -184,23 +185,30 @@ def match(infix, string):
     # Check if the accept state is in the set of current states
     return (nfa.accept in current)
 
-# print(compile("ab.cd.|"))
-# print(compile("aa.*"))
+print("---Author: Faris Nassif | G00347032---") 
+print("Regular Expression Program (change this later)\n") 
+# Defined vars for controlling user input
+userOption = "traverse"
 
-# Tests
-infixes = ["b+|c.d*"]
-strings = ["cddd"]
+# Functions like a do:while, user can traverse the program until they want to exit
+while userOption != "exit":
+    regexp = str(input("Please enter a regular expression: "))
+
+    userOption = input("Type exit to termiante the program or any other key to continue: ")
+
+infixes = ["1*|3+"]
+strings = ["1111111111","3"]
 
 for i in infixes:
     for s in strings:
         print(match(i,s), i, s)
 
-# print("---Author: Faris Nassif | G00347032---\n") 
+
 
 # Just printing an infix expression and the same expression in postfix to test
 # print("Infix\n(a.b)*|(b+a.d*)\nPostfix") 
 # print(shuntingYard("(a.b)*|(b+a.d*)")) 
 
-# Prompting the user to input an expression of their own for testing purposes
+# Prompting the user to input an expression of their own for.. testing purposes
 # regexp = str(input("Enter a regular expression in infix notation: "))
 # print(shuntingYard(regexp)) 

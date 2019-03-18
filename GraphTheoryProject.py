@@ -112,11 +112,13 @@ def compile(pofix):
         elif char == '?':
             # Pop a single nfa from the stack
             nfa1 = nfastack.pop()
+            # New initial
+            initial = state()
             # Only need two states and two arrows with the '?' operator
-            nfa1.initial.edge1 = nfa1.accept
-            nfa1.initial.edge2 = nfa1.accept
+            initial.edge1 = nfa1.initial
+            initial.edge2 = nfa1.accept
             # Push new nfa to the stack
-            newnfa = nfa(nfa1.initial, nfa1.accept)
+            newnfa = nfa(initial, nfa1.accept)
             nfastack.append(newnfa)
         elif char == '*':
             # Pop a single nfa from the stack
@@ -206,7 +208,7 @@ while userOption != "exit":
     userOption = input("Type exit to termiante the program or any other key to continue: ")
 
 infixes = ["a?"]
-strings = ["a","b","aaaa"]
+strings = ["a","b","aaaa","b","  ", "","aa","ab"]
 
 for i in infixes:
     for s in strings:

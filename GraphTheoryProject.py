@@ -196,26 +196,30 @@ def match(infix, string):
     # Check if the accept state is in the set of current states
     return (nfa.accept in current)
 
-print("---Author: Faris Nassif | G00347032---") 
-print("Regular Expression Program (change this later)\n") 
-# Defined vars for controlling user input
-userOption = "traverse"
+def runner():
+    """Used to run the program and call other funtions methodically"""
+    # Printing information messages
+    print("\n--- Author: Faris Nassif | G00347032 ---") 
+    print("Regular Expression Program (change this later)\n") 
 
-# Functions like a do:while, user can traverse the program until they want to exit
-while userOption != "exit":
-    regexp = str(input("Please enter a regular expression: "))
+    # Defined var for controlling user input
+    userOption = "traverse"
 
-    userOption = input("Type exit to termiante the program or any other key to continue: ")
+    # Functions like a do:while, user can traverse the program until they want to exit
+    while userOption != "exit":
+        print("*An example of a regular expression could be (a.b.c?)|(a+.b*)") 
+        regexp = str(input("Please enter a regular expression: "))
 
-infixes = ["a?"]
-strings = ["a","b","aaaa","b","  ", "","aa","ab"]
+        userOption = input("Type exit to termiante the program or any other key to continue: ")
 
-for i in infixes:
-    for s in strings:
-        print(match(i,s), i, s)
+    infixes = ["h.e.l.l.o*"]
+    strings = ["helloooooooooooo"]
 
+    for i in infixes:
+        for s in strings:
+            print(match(i,s), i, s)
 
-
+runner()
 # Just printing an infix expression and the same expression in postfix to test
 # print("Infix\n(a.b)*|(b+a.d*)\nPostfix") 
 # print(shuntingYard("(a.b)*|(b+a.d*)")) 

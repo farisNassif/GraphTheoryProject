@@ -29,10 +29,11 @@ class nfa:
 def shuntingYard(infix):
     """Return a postfix regular expression that was previously infix"""
     # Defining a list of special characters and giving them a value based on their precedence
-    specials = {'*': 50, '+':40, '?':30,'.':20, '|':10}
+    specials = {'*': 50, '+':40, '?':30, '$':25, '.':20, '|':10}
     # * = The preceding item will be matched zero or more times
     # + = The preceding item will be matched one or more times
     # ? = Matching 0 or 1 times
+    # $ = Character doesn't appear, similar to != also matches empty string
 
     # Equivelant postix regular expression
     pofix = ""
@@ -135,6 +136,21 @@ def compile(pofix):
             # Push new nfa to the stack
             newnfa = nfa(initial, accept)
             nfastack.append(newnfa)
+        elif char == '$':
+            # C$ should match the empty string, C.B$ should match C etc
+            # Pop a single nfa from the stack
+            nfa1 = nfastack.pop()
+            # New initial and new accept
+            initial = state()
+            accept = state()
+            # Match new initial with old initial and old accept with new accept
+            initial.edge1 = nfa1.initial
+            nfa1.accept.edge1 = accept
+            # Match new accept with old initial
+            accept = nfa1.initial
+            # Push to stack
+            newnfa = nfa(initial, accept)
+            nfastack.append(newnfa)
         else:
             # Two 'circles', initial and accept
             accept = state()
@@ -212,8 +228,8 @@ def runner():
 
         userOption = input("Type exit to termiante the program or any other key to continue: ")
 
-    infixes = ["h.e.l.l.o*"]
-    strings = ["helloooooooooooo"]
+    infixes = ["a.b.c$"]
+    strings = ["bbbb","bc","bccccc","bcd","bddd","","b","cc","bb","ab","abc","ab    "]
 
     for i in infixes:
         for s in strings:

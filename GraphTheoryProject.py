@@ -6,6 +6,8 @@
 # see if the regular expression matches a certain String with help 
 # from the previously constructed NFA.
 
+import sys
+
 # Represents a state with two arrows, labelled by label
 # Use none for a label representing 'e' arrows
 class state:
@@ -161,7 +163,6 @@ def compile(pofix):
             # Point to the accept state
             newnfa = nfa(initial, accept)
             nfastack.append(newnfa)
-
     # Should only have a single nfa on it         
     return nfastack.pop()
 
@@ -215,26 +216,32 @@ def match(infix, string):
 def runner():
     """Used to run the program and call other funtions methodically"""
     # Printing information messages
-    print("\n--- Author: Faris Nassif | G00347032 ---") 
-    print("Regular Expression Program (change this later)\n") 
-
+    print(f"\n--- Author: Faris Nassif | G00347032 | {sys.argv[0]} ---\n") 
+    
+    # Create a file called regexp.txt if it does not exist
+    f = open("regexp.txt", "w")
     # Defined var for controlling user input
     userOption = "traverse"
-
     # Functions like a do:while, user can traverse the program until they want to exit
     while userOption != "exit":
+        infixes = []
+        regExpAmt = 999
+        # While RegExp amount is 1-5
+        while regExpAmt > 5 or regExpAmt < 1:
+            regExpAmt = int(input("Choose how many Regular Expressions you wish to enter (Up to 5): "))
+        # Information message to the user
         print("*An example of a regular expression could be (a.b.c?)|(a+.b*)") 
-        regexp = str(input("Please enter a regular expression: "))
+        # Will loop n times depending on users choice
+        for i in range(regExpAmt):
+            infixes.append((input("Please enter Regular Expression " + str(i+1) + ": ")))
+        print (infixes)
+        strings = ["aaa","aaaaab","abc","abcc","abbb"]
+
+        for i in infixes:
+            for s in strings:
+                print(match(i,s), i, s)
 
         userOption = input("Type exit to termiante the program or any other key to continue: ")
-
-    infixes = ["a.b.c$"]
-    strings = ["bbbb","bc","bccccc","bcd","bddd","","b","cc","bb","ab","abc","ab    "]
-
-    for i in infixes:
-        for s in strings:
-            print(match(i,s), i, s)
-
 runner()
 # Just printing an infix expression and the same expression in postfix to test
 # print("Infix\n(a.b)*|(b+a.d*)\nPostfix") 

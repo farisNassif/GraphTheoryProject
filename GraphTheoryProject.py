@@ -5,7 +5,6 @@
 # construct an NFA from a regular expression in Polish notation and 
 # see if the regular expression matches a certain String with help 
 # from the previously constructed NFA.
-
 import sys
 
 # Represents a state with two arrows, labelled by label
@@ -139,7 +138,7 @@ def compile(pofix):
             newnfa = nfa(initial, accept)
             nfastack.append(newnfa)
         elif char == '$':
-            # C$ should match the empty string, C.B$ should match C etc
+            # C$ should match the empty string, C.B$ should match C etc. Kinda like c NOT followed by b returns true
             # Pop a single nfa from the stack
             nfa1 = nfastack.pop()
             # New initial and new accept
@@ -217,32 +216,43 @@ def runner():
     """Used to run the program and call other funtions methodically"""
     # Printing information messages
     print(f"\n--- Author: Faris Nassif | G00347032 | {sys.argv[0]} ---\n") 
-    
-    # Create a file called regexp.txt if it does not exist
-    f = open("regexp.txt", "w")
     # Defined var for controlling user input
     userOption = "traverse"
     # Functions like a do:while, user can traverse the program until they want to exit
     while userOption != "exit":
         infixes = []
+        # Just setting it to 999 so the while below actually functions properly
         regExpAmt = 999
         # While RegExp amount is 1-5
         while regExpAmt > 5 or regExpAmt < 1:
             regExpAmt = int(input("Choose how many Regular Expressions you wish to enter (Up to 5): "))
         # Information message to the user
         print("*An example of a regular expression could be (a.b.c?)|(a+.b*)") 
-        # Will loop n times depending on users choice
+        # Will loop n times depending on users choice from previous input
         for i in range(regExpAmt):
+            # Adding n regular expressions to infixes[]
             infixes.append((input("Please enter Regular Expression " + str(i+1) + ": ")))
-        print (infixes)
+        # Strings to compare against, gonna change this later so user can input em
         strings = ["aaa","aaaaab","abc","abcc","abbb"]
-
+        # Create a file called regexp.txt if it does not exist
+        f = open("regexp.txt", "a")
+        # Setting this var to 0 again so I can print the regexp number in the file
+        regExpAmt = 0
         for i in infixes:
+            # regExpAmt++ just didn't want to work
+            regExpAmt = regExpAmt + 1
             for s in strings:
+                # Print to console result
                 print(match(i,s), i, s)
-
-        userOption = input("Type exit to termiante the program or any other key to continue: ")
+                # Also write the result to a file
+                f.write("Regular Exp[%i]: %s %s %s\n" % (regExpAmt,match(i,s), i, s))     
+        # Closing the file      
+        f.close()
+        # If user chooses to re-run the program they may without having to run it again in the console
+        userOption = input("Type exit to termiante the program or ANY other key to run again: ")
+# Runs the script
 runner()
+
 # Just printing an infix expression and the same expression in postfix to test
 # print("Infix\n(a.b)*|(b+a.d*)\nPostfix") 
 # print(shuntingYard("(a.b)*|(b+a.d*)")) 

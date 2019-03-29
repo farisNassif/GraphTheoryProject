@@ -6,7 +6,9 @@
 # see if the regular expression matches a certain String with help 
 # from the previously constructed NFA.
 import sys
+import os
 from datetime import datetime
+
 # Represents a state with two arrows, labelled by label
 # Use none for a label representing 'e' arrows
 class state:
@@ -189,6 +191,7 @@ def match(infix, string):
     """Matches the string to the infix regular expression"""
     # Shunt and compile the regular expression
     postfix = shuntingYard(infix)
+    # Builds the NFA
     nfa = compile(postfix)
 
     # The current set of states and the next set of states
@@ -220,22 +223,26 @@ def runner():
     userOption = "traverse"
     # This is solely for file output purposes, shows how many times user has looped
     iteration = 1
+
     # Functions like a do:while, user can traverse the program until they want to exit
     while userOption != "exit":
+        # Will be populated by the user
         infixes = []
+        # Strings to compare against, you can change them to whatever if you'd like to test certain expressions
+        strings = ["aaa","accccb","ab","baaabbaaa", "", "a"]
         # Just setting it to 999 so the while below actually functions properly
         regExpAmt = 999
         # While RegExp amount is 1-5
         while regExpAmt > 5 or regExpAmt < 1:
             regExpAmt = int(input("Choose how many Regular Expressions you wish to enter (Up to 5): "))
-        # Information message to the user
-        print("*An example of a regular expression could be (a.b.c?)|(a+.b*)") 
+        # Strings to compare against to have in mind when writing your Regular Expression
+        print("\nStrings to compare against. Keep these in mind when writing your Exp - ", strings)
+        # Information message to the user        
+        print("\n*An example of a regular expression could be (a.b.c?)|(a+.b*)") 
         # Will loop n times depending on users choice from previous input
         for i in range(regExpAmt):
             # Adding n regular expressions to infixes[]
-            infixes.append((input("Please enter Regular Expression " + str(i+1) + ": ")))
-        # Strings to compare against, gonna change this later so user can input em
-        strings = ["aaa","aaaaab","abc","abcc","abbb"]
+            infixes.append((input("Please enter Regular Expression " + str(i+1) + ": ")))  
         # Create a file called regexp.txt if it does not exist
         f = open("regexp.txt", "a")
         # Making use of datetime import, outputting current date in file to user
@@ -250,21 +257,15 @@ def runner():
             # regExpAmt++ just didn't want to work
             regExpAmt = regExpAmt + 1
             for s in strings:
-                # Print to console result
-                print(match(i,s), i, s)
                 # Also write the result to a file
-                f.write("Regular Exp[%i]: %s %s %s\n" % (regExpAmt,match(i,s), i, s))     
+                f.write("Regular Expression[%i]: %s --> %s | Match Result --> %s\n" % (regExpAmt, i, s, match(i,s)))     
         # Closing the file      
         f.close()
         # If user chooses to re-run the program they may without having to run it again in the console
         userOption = input("Type exit to termiante the program or ANY other key to run again: ")
+
 # Runs the script
 runner()
-
-# Just printing an infix expression and the same expression in postfix to test
-# print("Infix\n(a.b)*|(b+a.d*)\nPostfix") 
-# print(shuntingYard("(a.b)*|(b+a.d*)")) 
-
-# Prompting the user to input an expression of their own for.. testing purposes
-# regexp = str(input("Enter a regular expression in infix notation: "))
-# print(shuntingYard(regexp)) 
+print("\nPlease take a look at the Github Wiki in regards to the '$','+' and '?' operators") 
+# Pops open the file with results of the matching
+os.startfile("regexp.txt")

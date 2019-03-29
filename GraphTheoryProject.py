@@ -6,7 +6,7 @@
 # see if the regular expression matches a certain String with help 
 # from the previously constructed NFA.
 import sys
-
+from datetime import datetime
 # Represents a state with two arrows, labelled by label
 # Use none for a label representing 'e' arrows
 class state:
@@ -218,6 +218,8 @@ def runner():
     print(f"\n--- Author: Faris Nassif | G00347032 | {sys.argv[0]} ---\n") 
     # Defined var for controlling user input
     userOption = "traverse"
+    # This is solely for file output purposes, shows how many times user has looped
+    iteration = 1
     # Functions like a do:while, user can traverse the program until they want to exit
     while userOption != "exit":
         infixes = []
@@ -236,6 +238,12 @@ def runner():
         strings = ["aaa","aaaaab","abc","abcc","abbb"]
         # Create a file called regexp.txt if it does not exist
         f = open("regexp.txt", "a")
+        # Making use of datetime import, outputting current date in file to user
+        now = datetime.today().isoformat()
+        # Writing Iteration and time + date to the file
+        f.write("-- Iteration [%i] | %s --\n" % (iteration, now))
+        # If the user decides to reloop they won't get confused at what piece of date in the .txt file belongs to which iteration
+        iteration = iteration + 1
         # Setting this var to 0 again so I can print the regexp number in the file
         regExpAmt = 0
         for i in infixes:

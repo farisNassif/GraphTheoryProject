@@ -29,6 +29,7 @@ class nfa:
 # -- Resources I found helpful upon researching the algorithim --
 # At 47:10 the video goes over precedence and operators - https://www.youtube.com/watch?v=B72XAeFO9ZE
 # Helped visualise the process - http://www.oxfordmathcenter.com/drupal7/node/628 
+# http://spronck.net/pythonbook/pythonbook.pdf page 279. Assisted with Operators
 def shuntingYard(infix):
     """Return a postfix regular expression that was previously infix"""
     # Defining a list of special characters and giving them a value based on their precedence
@@ -263,7 +264,6 @@ def runner():
         f.close()
         # If user chooses to re-run the program they may without having to run it again in the console
         userOption = input("Type exit to termiante the program or ANY other key to run again: ")
-
 # Runs the script
 runner()
 print("\nPlease take a look at the Github Wiki in regards to the '$','+' and '?' operators") 

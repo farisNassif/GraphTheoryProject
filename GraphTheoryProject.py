@@ -248,9 +248,9 @@ def runner():
         f = open("regexp.txt", "a")
         # Making use of datetime import, outputting current date in file to user
         now = datetime.today().isoformat()
-        # Writing Iteration and time + date to the file
+        # Writing Iteration number and time + date to the file
         f.write("-- Iteration [%i] | %s --\n" % (iteration, now))
-        # If the user decides to reloop they won't get confused at what piece of date in the .txt file belongs to which iteration
+        # If the user decides to reloop they won't get confused at what piece of data in the .txt file belongs to which iteration
         iteration = iteration + 1
         # Setting this var to 0 again so I can print the regexp number in the file
         regExpAmt = 0
@@ -266,6 +266,7 @@ def runner():
         userOption = input("Type exit to termiante the program and view the Results or ANY other key to continue: ")
 # Runs the script
 runner()
+print(shuntingYard("(a+.b)"))
 print("\nPlease take a look at the Github Wiki in regards to the '$','+' and '?' operators") 
 # Pops open the file with results of the matching
 os.startfile("regexp.txt")

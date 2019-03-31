@@ -36,9 +36,9 @@ def shuntingYard(infix):
     specials = {'*': 50, '+':40, '?':30, '$':25, '.':20, '|':10}
     # * = The preceding item will be matched zero or more times
     # + = The preceding item will be matched one or more times
-    # ? = Matching 0 or 1 times
+    # ? = Matching 0 or 1 times. For exmaple (a.b.c.d?) Will match abc | abcd
     # $ = Character doesn't appear, similar to != also matches empty string
-
+    # Matches the end of a String, a.b$ should match a for exmaple. Also matches the empty string
     # Equivelant postix regular expression
     pofix = ""
     # Stack of operators 
@@ -230,7 +230,7 @@ def runner():
         # Will be populated by the user
         infixes = []
         # Strings to compare against, you can change them to whatever if you'd like to test certain expressions
-        strings = ["aaa","accccb","ab","baaabbaaa", "", "a"]
+        strings = ["abc","abcd","abbbbbccc","abbbc", "", "a"]
         # Just setting it to 999 so the while below actually functions properly
         regExpAmt = 999
         # While RegExp amount is 1-5
@@ -263,7 +263,7 @@ def runner():
         # Closing the file      
         f.close()
         # If user chooses to re-run the program they may without having to run it again in the console
-        userOption = input("Type exit to termiante the program or ANY other key to run again: ")
+        userOption = input("Type exit to termiante the program and view the Results or ANY other key to continue: ")
 # Runs the script
 runner()
 print("\nPlease take a look at the Github Wiki in regards to the '$','+' and '?' operators") 

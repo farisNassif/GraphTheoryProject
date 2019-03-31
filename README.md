@@ -41,3 +41,45 @@ No output actually appears in the console, all output is written to the 'regexp.
 Finally when 'exit' is input into the console, the file will pop up for the user automatically using the `os` import displaying the results of all their matching.
 
 Then the function works on the second paramater passed into it `strings[]`. 
+
+## Examples of running the Program
+Once ran (_python graphtheoryproject.py_) 
+
+![alt text](https://i.imgur.com/CrbLeOF.png "Two iterations")
+
+Once 'exit' is input a text file will pop out with the results of the attempted matching.
+
+![alt text](https://i.imgur.com/nAvymXf.png "Results")
+
+A file then automatically pops up displaying the results. It additionally shows the iteration number, date and time and the corresponding number of the regualr expression based on which order it was entered in.
+
+## Added Operators and how they influence NFA Construction
+_The following NFA were constructed by me on http://madebyevan.com/fsm/_
+*(_NI = New Initial, NA = New Accept, I = Initial, A = Accept_)
+The first of the new Operators I implemented was the '+' Operator. The '+' Operator indicates a character matching 1 or more times
+
+_Given the Regular Expression '(a+)'_
+![alt text](https://i.imgur.com/YqUbrzt.png "+ Operator")
+
+Take the Regular Expression (a.b+). This will match 'ab', 'abbbbb....' but not 'a' since it doesn't accept the empty string.
+**
+The Next Operator I implemented was the '?' Operator. The '?' Operator indicates a character has matched 0 or 1 times.
+
+_Given the Regular Expression '(a?)'_
+![alt text](https://i.imgur.com/PBldbjw.png "? Operator")
+
+Take the Regular Expression(a.b?). This will match 'a','ab' but nothing else, since it's a binary operator, 0 or 1 theres only two outcomes
+**
+The Next Operator I implemented was the '$' Operator. The '$' Operator indicates a character has matched 0 times. 
+
+_Given the Regular Expression '(a$)'_
+![alt text](https://i.imgur.com/cRMXQqD.png "$ Operator")
+
+Take the Regular Expression(a.b$). This will match ONLY 'a'. or (a$) will match the empty string.
+
+
+
+
+
+
+

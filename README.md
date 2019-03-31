@@ -55,6 +55,7 @@ A file then automatically pops up displaying the results. It additionally shows 
 
 ## Added Operators and how they influence NFA Construction
 _The following NFA were constructed by me on http://madebyevan.com/fsm/_
+
 *(_NI = New Initial, NA = New Accept, I = Initial, A = Accept_)
 The first of the new Operators I implemented was the '+' Operator. The '+' Operator indicates a character matching 1 or more times
 
@@ -76,6 +77,22 @@ _Given the Regular Expression '(a$)'_
 ![alt text](https://i.imgur.com/cRMXQqD.png "$ Operator")
 
 Take the Regular Expression(a.b$). This will match ONLY 'a'. or (a$) will match the empty string.
+
+## Testing Operators
+I will input Regular Expressions that will test against the `Strings["abbbaaaccaa","a",""]`
+
+
+![alt text](https://i.imgur.com/iYuQDTM.png "Testing Operators")
+
+The operators correctly match all corresponding Strings
+
+## Conclusion
+Overall the Project has been a huge learning experiences. From concepts I've never heard of and a Programming Language we've not even used so far in the course I can confidently say I've expanded my skillset during the timeline of the project. If I was to start the Project again I'd love to do it in another Programming Language, C preferably and I would definitely give myself more time to research the topics. With the Projects related topics it was actually pretty hard to find good content online that wasn't poorly orchestrated or conveyed, my research pretty much spans the links I've provided along with books and links posted on the course page which helped immensely with the creation of the end product of this project. If I had more time I would sit down and focus on other operators and try and fix up the '$' operator. I feel the way I did it wasn't optimal. If need be I have all my notes and documents and will bring them to the demonstration if necessary.
+
+**
+
+_Faris Nassif - G00347032@gmit.ie_
+
 
 
 

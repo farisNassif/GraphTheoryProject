@@ -230,7 +230,7 @@ def runner():
         # Will be populated by the user
         infixes = []
         # Strings to compare against, you can change them to whatever if you'd like to test certain expressions
-        strings = ["abc","abcd","abbbbbccc","abbbc", "", "a"]
+        strings = ["abbbaaaccaa","a","","ab"]
         # Just setting it to 999 so the while below actually functions properly
         regExpAmt = 999
         # While RegExp amount is 1-5
@@ -266,7 +266,5 @@ def runner():
         userOption = input("Type exit to termiante the program and view the Results or ANY other key to continue: ")
 # Runs the script
 runner()
-print(shuntingYard("(a+.b)"))
-print("\nPlease take a look at the Github Wiki in regards to the '$','+' and '?' operators") 
 # Pops open the file with results of the matching
 os.startfile("regexp.txt")

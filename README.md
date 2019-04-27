@@ -57,6 +57,7 @@ A file then automatically pops up displaying the results. It additionally shows 
 _The following NFA were constructed by me on http://madebyevan.com/fsm/_
 
 <b>*(_NI = New Initial, NA = New Accept, I = Initial, A = Accept_)</b>\
+\
 The first of the new Operators I implemented was the '+' Operator. The '+' Operator indicates a character matching 1 or more times
 
 _Given the Regular Expression '(a+)'_

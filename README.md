@@ -40,8 +40,6 @@ No output actually appears in the console, all output is written to the 'regexp.
 
 Finally when 'exit' is input into the console, the file will pop up for the user automatically using the `os` import displaying the results of all their matching.
 
-Then the function works on the second paramater passed into it `strings[]`. 
-
 ## Examples of running the Program
 Once ran (_python graphtheoryproject.py_) 
 

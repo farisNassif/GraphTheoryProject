@@ -54,7 +54,7 @@ A file then automatically pops up displaying the results. It additionally shows 
 ## Added Operators and how they influence NFA Construction
 _The following NFA were constructed by me on http://madebyevan.com/fsm/_
 
-<b>*(_NI = New Initial, NA = New Accept, I = Initial, A = Accept_)</b>\
+<b>(_NI = New Initial, NA = New Accept, I = Initial, A = Accept_)</b>\
 \
 The first of the new Operators I implemented was the '+' Operator. The '+' Operator indicates a character matching 1 or more times
 
@@ -92,11 +92,3 @@ If I was to start the Project again I'd love to do it in another Programming Lan
 \
 \
 _Faris Nassif - G00347032@gmit.ie_
-
-
-
-
-
-
-
-

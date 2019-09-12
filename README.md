@@ -59,7 +59,6 @@ _The following NFA were constructed by me on http://madebyevan.com/fsm/_
 The first of the new Operators I implemented was the '+' Operator. The '+' Operator indicates a character matching 1 or more times
 
 <b>_Given the Regular Expression '(a+)'_</b>
-
 ![alt text](https://i.imgur.com/YqUbrzt.png "+ Operator")
 
 Take the Regular Expression (a.b+). This will match 'ab', 'abbbbb....' but not 'a' since it doesn't accept the empty string.
@@ -67,7 +66,6 @@ Take the Regular Expression (a.b+). This will match 'ab', 'abbbbb....' but not '
 The Next Operator I implemented was the '?' Operator. The '?' Operator indicates a character has matched 0 or 1 times.
 
 <b>_Given the Regular Expression '(a?)'_</b>
-
 ![alt text](https://i.imgur.com/PBldbjw.png "? Operator")
 
 Take the Regular Expression(a.b?). This will match 'a','ab' but nothing else, since it's a binary operator, 0 or 1 theres only two outcomes
@@ -75,7 +73,6 @@ Take the Regular Expression(a.b?). This will match 'a','ab' but nothing else, si
 The Next Operator I implemented was the '$' Operator. The '$' Operator indicates a character has matched 0 times. 
 
 <b>_Given the Regular Expression '(a$)'_</b>
-
 ![alt text](https://i.imgur.com/cRMXQqD.png "$ Operator")
 
 Take the Regular Expression(a.b$). This will match ONLY 'a'. or (a$) will match the empty string.
